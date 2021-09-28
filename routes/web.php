@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+// generic controller
+use App\Http\Controllers\PagesController;
+
+// posts controllers
 use App\Http\Controllers\PostsController;
 
 /*
@@ -13,6 +18,8 @@ use App\Http\Controllers\PostsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', [PagesController::class, 'index']);
 
 Route::get('/posts', [PostsController::class, 'index'])->name('posts');
 Route::get('/posts/{name}', [PostsController::class, 'detail'])->where('name', '[a-zA-Z-]+');

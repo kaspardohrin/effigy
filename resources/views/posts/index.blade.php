@@ -1,17 +1,10 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
 
-  <h1>Posts</h1>
+@section('content')
+<h1>Posts</h1>
 
-  @foreach ($items as $item)
-    <a href="{{ route('posts') . '/' . $item}}"> {{ $item }} </p>
-  @endforeach
+@foreach ($items as $item)
+  <a href="{{ route('posts') . '/' . $item}}"> {{ $item }} </p>
+@endforeach
 
-</body>
-</html>
+@endsection

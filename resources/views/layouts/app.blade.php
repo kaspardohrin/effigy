@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Personal Website - Code With Dary
+    </title>
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap"
+    />
+    <link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/app.css') }}"
+    />
+</head>
+
+<style>
+    li .active {
+        color: red;
+    }
+</style>
+
+<body>
+    <header>
+      @include('layouts.nav')
+    </header>
+
+    <div id="hero-container">
+        <div class="hero-wrapper">
+            @yield('content')
+        </div>
+    </div>
+
+    <footer>
+      @include('layouts.footer')
+    </footer>
+</body>
+</html>
