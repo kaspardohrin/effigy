@@ -20,12 +20,6 @@
     />
 </head>
 
-<style>
-    li .active {
-        color: red;
-    }
-</style>
-
 <body>
     <header>
       @include('layouts.nav')

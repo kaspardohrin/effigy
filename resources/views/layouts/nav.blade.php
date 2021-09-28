@@ -11,10 +11,10 @@
     </div>
 
     <ul>
-        <li class="{{ request()->is('/') ? 'active' : ''}}">
+        <li class="{{ request()->is('/') ? 'active' : '' }}">
             <a href="/">Home</a>
         </li>
-        <li class="{{ request()->is('/posts/*') ? 'active' : ''}}">
+        <li class="{{ request()->is('posts') ? 'active' : '' }}">
             <a href="/posts">Posts</a>
         </li>
     </ul>

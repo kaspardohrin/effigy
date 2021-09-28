@@ -41,7 +41,7 @@ p {
   top: 34px;
   right: 80px;
 }
-.top-menu-container ul li{
+.top-menu-container ul li {
   display: inline;
 }
 .top-menu-container ul li a {
@@ -52,7 +52,10 @@ p {
   text-transform: uppercase;
   color: #303030;
 }
-
+.top-menu-container ul .active {
+  font-weight: bold;
+  color: red;
+}
 
 /* Landing section */
 #hero-container {
@@ -65,7 +68,7 @@ p {
 .hero-wrapper {
   width: 80%;
   position: relative;
-  top: 30%;
+  top: 10%;
   margin: 0 auto;
 }
 .middle {

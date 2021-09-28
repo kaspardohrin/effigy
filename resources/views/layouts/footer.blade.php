@@ -4,7 +4,5 @@
         alt="logo effigy"
         title="logo effigy"
     />
-    <p>
-        EFFIGY
-    </p>
+    <p>EFFIGY</p>
 </div>
