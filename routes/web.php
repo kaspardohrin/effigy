@@ -21,5 +21,4 @@ use App\Http\Controllers\PostsController;
 
 Route::get('/', [PagesController::class, 'index']);
 
-Route::get('/posts', [PostsController::class, 'index'])->name('posts');
-Route::get('/posts/{name}', [PostsController::class, 'detail'])->where('name', '[a-zA-Z-]+');
+Route::resource('/posts', PostsController::class);
