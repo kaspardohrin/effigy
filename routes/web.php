@@ -8,6 +8,12 @@ use App\Http\Controllers\PagesController;
 // posts controllers
 use App\Http\Controllers\PostsController;
 
+// comments controllers
+use App\Http\Controllers\CommentsController;
+
+// likes controllers
+use App\Http\Controllers\LikesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +28,8 @@ use App\Http\Controllers\PostsController;
 Route::get('/', [PagesController::class, 'index']);
 
 Route::resource('/posts', PostsController::class);
+Route::get('/posts/{id}', [CommentsController::class, 'index']);
+
+Route::resource('/comments', CommentsController::class);
+
+Route::resource('/likes', LikesController::class);

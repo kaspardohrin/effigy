@@ -12,6 +12,8 @@ php artisan migrate
 
 php artisan route:list
 
+php artisan migrate:fresh --seed
+
 php artisan tinker
 >>> \App\Models\Post::factory()->create();
 >>> \App\Models\Post::factory()->count(<n>)->create();

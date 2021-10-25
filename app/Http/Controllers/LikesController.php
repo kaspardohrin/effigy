@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Like;
 use App\Models\Post;
 
-class PostsController extends Controller
+class LikesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-
-        return view('posts.index', [
-            'posts' => $posts
-        ]);
+        return 'likes.index';
     }
 
     /**
@@ -28,7 +25,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return 'likes.create';
     }
 
     /**
@@ -39,24 +36,17 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'image' => 'required|mimes:jpg,jpeg,png|max:5048',
-        ]);
+        $like = new Like;
+        $like->user_id = 1;
+        $like->post_id = 1;
+        $like->save();
 
-        $name = time() . '-' . $request->title . '.' . $request->image->extension();
+        // $like = Like::create([
+        //     'user_id' => 1,
+        //     'post_id' => $request->input('post_id'),
+        // ]);
 
-        $request->image->move(public_path('images'), $name);
-
-        $post = Post::create([
-            'user_id' => 1,
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'path' => 'images/' . $name,
-        ]);
-
-        return redirect('/posts');
+        return back();
     }
 
     /**
@@ -67,11 +57,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
-
-        if (!$post) return redirect('posts');
-
-        return view('posts.show')->with('post', $post);
+        return 'likes.show';
     }
 
     /**
@@ -82,9 +68,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id)->first();
-
-        return view('posts.edit')->with('post', $post);
+        return 'likes.edit';
     }
 
     /**
@@ -96,13 +80,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::where('id', $id)->
-            update([
-                'title' => $request->input('title'),
-                'description' => $request->input('description')
-            ]);
-
-        return redirect('/posts');
+        return 'likes.update';
     }
 
     /**
@@ -111,10 +89,14 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($post_id)
     {
-        $post->delete();
+        $post = Post::find($post_id)->first();
 
-        return redirect('/posts');
+        $like = $post->likes[0];
+
+        $like->delete();
+
+        return back();
     }
 }

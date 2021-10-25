@@ -25,10 +25,8 @@
       @include('layouts.nav')
     </header>
 
-    <div id="hero-container">
-        <div class="hero-wrapper">
-            @yield('content')
-        </div>
+    <div class="content">
+        @yield('content')
     </div>
 
     <footer>

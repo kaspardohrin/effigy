@@ -13,7 +13,8 @@ class Like extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-
+        'user_id',
+        'post_id',
     ];
 
     // a like belongs to a user

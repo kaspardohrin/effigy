@@ -22,7 +22,8 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'post_id' => 1,
+            'user_id' => rand(1, 5),
+            'post_id' => rand(1, 10),
             'comment' => $this->faker->paragraph(),
             'created_at' => now(),
         ];

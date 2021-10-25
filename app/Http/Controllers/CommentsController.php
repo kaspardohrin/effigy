@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Comment;
 
-class PostsController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-
-        return view('posts.index', [
-            'posts' => $posts
-        ]);
+        return 'comments.index';
     }
 
     /**
@@ -28,7 +24,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('comments.create');
     }
 
     /**
@@ -39,24 +35,13 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'image' => 'required|mimes:jpg,jpeg,png|max:5048',
-        ]);
+        $comment = new Comment;
+        $comment->user_id = 1;
+        $comment->post_id = 1;
+        $comment->comment = $request->input('comment');
+        $comment->save();
 
-        $name = time() . '-' . $request->title . '.' . $request->image->extension();
-
-        $request->image->move(public_path('images'), $name);
-
-        $post = Post::create([
-            'user_id' => 1,
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'path' => 'images/' . $name,
-        ]);
-
-        return redirect('/posts');
+        return back();
     }
 
     /**
@@ -67,11 +52,13 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        return 'comments.show';
 
-        if (!$post) return redirect('posts');
+        // $comment = Comment::find($id);
 
-        return view('posts.show')->with('post', $post);
+        // if (!$comment) return redirect('comments');
+
+        // return view('comments.show')->with('comment', $comment);
     }
 
     /**
@@ -82,9 +69,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id)->first();
+        $comment = Comment::find($id)->first();
 
-        return view('posts.edit')->with('post', $post);
+        return view('comments.edit')->with('comment', $comment);
     }
 
     /**
@@ -96,13 +83,12 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::where('id', $id)->
+        $comment = Comment::where('id', $id)->
             update([
-                'title' => $request->input('title'),
-                'description' => $request->input('description')
+                'comment' => $request->input('comment')
             ]);
 
-        return redirect('/posts');
+        return back();
     }
 
     /**
@@ -111,10 +97,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Comment $comment)
     {
-        $post->delete();
+        $comment->delete();
 
-        return redirect('/posts');
+        return back();
     }
 }

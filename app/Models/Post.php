@@ -13,8 +13,10 @@ class Post extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'user_id',
         'title',
         'description',
+        'path',
     ];
 
     // // a post is owned by a user

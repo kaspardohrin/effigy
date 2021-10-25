@@ -15,6 +15,7 @@ class Comment extends Model
     protected $fillable = [
         'comment',
         'post_id',
+        'user_id',
     ];
 
     // a comment belongs to a user

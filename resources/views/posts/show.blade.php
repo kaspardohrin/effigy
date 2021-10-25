@@ -1,29 +1,72 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Post</h1>
+  <a href="/posts">&larr; Back</a>
 
-<p> {{ $post->title }} </p>
-<p> {{ $post->description }} </p>
+  <h1>Post</h1>
 
-<p>Likes: {{ count($post->likes) }}</p>
+  <p> {{ $post->title }} </p>
+  <p> {{ $post->description }} </p>
+  <img class="mt-4 mx-auto" src="{{ asset($post->path) }}" alt="image">
 
+  <p>Likes: {{ count($post->likes) }}</p>
 
-<ul>
-  <p>Comments:</p>
+  <!-- add like -->
+  <form action="/likes" method="POST">
+    @csrf
+    <div class="block">
+      <button>
+        &uarr;
+      </button>
+    </div>
+  </form>
 
-  @forelse ($post->comments as $comments)
-    <li>
-      {{ $comments->comment }}
-    </li>
-  @empty
-    <li>Such empty.</li>
-  @endforelse
-</ul>
+  <!-- remove like -->
+  <form action="/likes/{{ $post->id }}" method="POST">
+    @csrf
+    @method('delete')
+    <button>
+      &darr;
+    </button>
+  </form>
 
+  <!-- list all comments on currently selected post -->
+  <ul>
+    <p>Comments:</p>
 
+    @forelse ($post->comments as $comments)
+      <li>
+        {{ $comments->comment }}
+        <!-- delete comment -->
+        <form action="/comments/{{ $comments->id }}" method="POST">
+          @csrf
+          @method('delete')
+          <button>
+            Delete &rarr;
+          </button>
+        </form>
+      </li>
 
-<a href="/posts">&larr; Back</a>
+    @empty
+      <li>Such empty.</li>
+    @endforelse
+  </ul>
+
+  <!-- add comment -->
+  <form action="/comments" method="POST">
+    @csrf
+    <div class="block">
+      <input
+          type="text"
+          name="comment"
+          placeholder="Comment.."
+      >
+      <button>
+        Reply
+      </button>
+    </div>
+  </form>
+
+  <a href="/posts">&larr; Back</a>
 
 @endsection
-
