@@ -15,6 +15,11 @@
   <form action="/likes" method="POST">
     @csrf
     <div class="block">
+      <input
+        type="hidden"
+        name="post_id"
+        value="{{ $post->id }}"
+      >
       <button>
         &uarr;
       </button>
@@ -60,6 +65,11 @@
           type="text"
           name="comment"
           placeholder="Comment.."
+      >
+      <input
+        type="hidden"
+        name="post_id"
+        value="{{ $post->id }}"
       >
       <button>
         Reply

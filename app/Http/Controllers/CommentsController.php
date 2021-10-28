@@ -8,6 +8,15 @@ use App\Models\Comment;
 class CommentsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -37,7 +46,7 @@ class CommentsController extends Controller
     {
         $comment = new Comment;
         $comment->user_id = 1;
-        $comment->post_id = 1;
+        $comment->post_id = $request->input('post_id');
         $comment->comment = $request->input('comment');
         $comment->save();
 

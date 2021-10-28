@@ -25,6 +25,8 @@ use App\Http\Controllers\LikesController;
 |
 */
 
+Auth::routes();
+
 Route::get('/', [PagesController::class, 'index']);
 
 Route::resource('/posts', PostsController::class);
@@ -33,3 +35,10 @@ Route::get('/posts/{id}', [CommentsController::class, 'index']);
 Route::resource('/comments', CommentsController::class);
 
 Route::resource('/likes', LikesController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

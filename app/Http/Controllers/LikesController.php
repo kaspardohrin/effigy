@@ -9,6 +9,15 @@ use App\Models\Post;
 class LikesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -38,7 +47,7 @@ class LikesController extends Controller
     {
         $like = new Like;
         $like->user_id = 1;
-        $like->post_id = 1;
+        $like->post_id = $request->input('post_id');
         $like->save();
 
         // $like = Like::create([
@@ -91,9 +100,7 @@ class LikesController extends Controller
      */
     public function destroy($post_id)
     {
-        $post = Post::find($post_id)->first();
-
-        $like = $post->likes[0];
+        $like = Like::where('post_id', $post_id)->get()[0];
 
         $like->delete();
 
