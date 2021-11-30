@@ -8,6 +8,8 @@
     NEW &rarr;
   </a>
 
+  <p>Amount of posts: {{ count($posts); }}</p>
+
   @foreach ($posts as $post)
 
     <p>{{ $post->title }}</p>
@@ -18,15 +20,15 @@
 
     <a href="posts/{{ $post->id }}">View &rarr;</a>
 
-    <a href="posts/{{ $post->id }}/edit">Edit &rarr;</a>
+    <!-- <a href="posts/{{ $post->id }}/edit">Edit &rarr;</a> -->
 
-    <form action="/posts/{{ $post->id }}" method="POST">
+    <!-- <form action="/posts/{{ $post->id }}" method="POST">
       @csrf
       @method('delete')
       <button>
         Delete &rarr;
       </button>
-    </form>
+    </form> -->
 
   @endforeach
 

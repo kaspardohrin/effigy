@@ -14,6 +14,13 @@ use App\Http\Controllers\CommentsController;
 // likes controllers
 use App\Http\Controllers\LikesController;
 
+// profile controllers
+use App\Http\Controllers\ProfilesController;
+
+// user controllers
+use App\Http\Controllers\UsersController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,16 +36,15 @@ Auth::routes();
 
 Route::get('/', [PagesController::class, 'index']);
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/profile', [ProfilesController::class, 'index']);
+
 Route::resource('/posts', PostsController::class);
+Route::put('/posts/activate/{id}', [PostsController::class, 'activate']);
 Route::get('/posts/{id}', [CommentsController::class, 'index']);
-
 Route::resource('/comments', CommentsController::class);
-
 Route::resource('/likes', LikesController::class);
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::delete('/user/{id}', [UsersController::class, 'destroy']);
+Route::put('/user/{id}', [UsersController::class, 'update']);

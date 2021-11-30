@@ -45,7 +45,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $comment = new Comment;
-        $comment->user_id = 1;
+        $comment->user_id = auth()->user()->id;
         $comment->post_id = $request->input('post_id');
         $comment->comment = $request->input('comment');
         $comment->save();
@@ -108,6 +108,13 @@ class CommentsController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $user_id = auth()->user()->id;
+        $owner = $comment->user_id == $user_id;
+        $admin = auth()->user()->admin;
+        if (
+            (!$owner) || (!$owner && !$admin)
+        ) return redirect('/posts');
+
         $comment->delete();
 
         return back();

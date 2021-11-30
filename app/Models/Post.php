@@ -17,6 +17,7 @@ class Post extends Model
         'title',
         'description',
         'path',
+        'hidden',
     ];
 
     // // a post is owned by a user

@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->mediumText('description');
             $table->string('path');
+            $table->boolean('hidden');
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')

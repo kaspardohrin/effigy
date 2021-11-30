@@ -59,10 +59,11 @@ class PostsController extends Controller
         $request->image->move(public_path('images'), $name);
 
         $post = Post::create([
-            'user_id' => 1,
+            'user_id' => auth()->user()->id,
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'path' => 'images/' . $name,
+            'hidden' => false,
         ]);
 
         return redirect('/posts');
@@ -78,8 +79,6 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
 
-        if (!$post) return redirect('posts');
-
         return view('posts.show')->with('post', $post);
     }
 
@@ -91,7 +90,14 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id)->first();
+        $post = Post::find($id);
+
+        $user_id = auth()->user()->id;
+        $owner = Post::find($id)->user_id == $user_id;
+        $admin = auth()->user()->admin;
+        if (
+            (!$owner) || (!$owner && !$admin)
+        ) return redirect('/posts');
 
         return view('posts.edit')->with('post', $post);
     }
@@ -105,14 +111,44 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user_id = auth()->user()->id;
+        $owner = Post::find($id)->user_id == $user_id;
+        $admin = auth()->user()->admin;
+        if (
+            (!$owner) || (!$owner && !$admin)
+        ) return redirect('/posts');
+
         $post = Post::where('id', $id)->
             update([
                 'title' => $request->input('title'),
                 'description' => $request->input('description')
             ]);
 
-        return redirect('/posts');
+        return redirect('/posts/' . $id);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function activate(Request $request, $id)
+    {
+        $user_id = auth()->user()->id;
+        $owner = Post::find($id)->user_id == $user_id;
+
+        if (!$owner) return redirect('/posts');
+
+        $post = Post::where('id', $id)->
+            update([
+                'hidden' => !Post::find($id)->hidden,
+            ]);
+
+        return redirect('/profile');
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -122,6 +158,13 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
+        $user_id = auth()->user()->id;
+        $owner = Post::find($id)->user_id == $user_id;
+        $admin = auth()->user()->admin;
+        if (
+            (!$owner) || (!$owner && !$admin)
+        ) return redirect('/posts');
+
         $post->delete();
 
         return redirect('/posts');

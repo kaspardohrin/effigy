@@ -5,6 +5,21 @@
 
   <h1>Post</h1>
 
+  <!-- if user is the owner of the post -->
+  @if (auth()->user()->id == $post->user_id)
+    <a href="/posts/{{ $post->id }}/edit">Edit &rarr;</a>
+  @endif
+
+  @if (auth()->user()->id == $post->user_id || auth()->user()->admin)
+    <form action="/posts/{{ $post->id }}" method="POST">
+      @csrf
+      @method('delete')
+      <button>
+        Delete &rarr;
+      </button>
+    </form>
+  @endif
+
   <p> {{ $post->title }} </p>
   <p> {{ $post->description }} </p>
   <img class="mt-4 mx-auto" src="{{ asset($post->path) }}" alt="image">
@@ -39,17 +54,22 @@
   <ul>
     <p>Comments:</p>
 
+    <p>Amount of comments: {{ count($post->comments); }}</p>
+
     @forelse ($post->comments as $comments)
       <li>
         {{ $comments->comment }}
         <!-- delete comment -->
-        <form action="/comments/{{ $comments->id }}" method="POST">
-          @csrf
-          @method('delete')
-          <button>
-            Delete &rarr;
-          </button>
-        </form>
+
+        @if ($comments->user_id == auth()->user()->id || auth()->user()->admin)
+          <form action="/comments/{{ $comments->id }}" method="POST">
+            @csrf
+            @method('delete')
+            <button>
+              Delete &rarr;
+            </button>
+          </form>
+        @endif
       </li>
 
     @empty
@@ -76,7 +96,5 @@
       </button>
     </div>
   </form>
-
-  <a href="/posts">&larr; Back</a>
 
 @endsection

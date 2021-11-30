@@ -11,6 +11,8 @@ php artisan make:controller <name[plural]> --resource
 php artisan migrate
 
 php artisan route:list
+php artisan route:clear
+php artisan optimize
 
 php artisan migrate:fresh --seed
 

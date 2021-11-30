@@ -27,6 +27,7 @@ class PostFactory extends Factory
             'title' => $this->faker->title(),
             'description' => $this->faker->paragraph(),
             'path' => 'img/octo.jpg',
+            'hidden' => false,
             'created_at' => now(),
         ];
     }

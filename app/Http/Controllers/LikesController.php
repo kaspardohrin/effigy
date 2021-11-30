@@ -46,7 +46,7 @@ class LikesController extends Controller
     public function store(Request $request)
     {
         $like = new Like;
-        $like->user_id = 1;
+        $like->user_id = auth()->user()->id;
         $like->post_id = $request->input('post_id');
         $like->save();
 
