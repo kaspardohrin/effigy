@@ -79,6 +79,8 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
 
+        if ($post->hidden) return redirect('/posts');
+
         return view('posts.show')->with('post', $post);
     }
 
@@ -159,7 +161,7 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
         $user_id = auth()->user()->id;
-        $owner = Post::find($id)->user_id == $user_id;
+        $owner = $post->user_id == $user_id;
         $admin = auth()->user()->admin;
         if (
             (!$owner) || (!$owner && !$admin)

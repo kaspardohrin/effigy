@@ -12,23 +12,26 @@
 
   @foreach ($posts as $post)
 
-    <p>{{ $post->title }}</p>
-    <p>{{ $post->description }}</p>
-    <img class="post-image" src="{{ asset($post->path) }}" alt="image">
-    <p>Likes: {{ count($post->likes) }}</p>
-    <p>Comments: {{ count($post->comments) }}</p>
+    @if(!$post->hidden)
 
-    <a href="posts/{{ $post->id }}">View &rarr;</a>
+      <p>{{ $post->title }}</p>
+      <p>{{ $post->description }}</p>
+      <img class="post-image" src="{{ asset($post->path) }}" alt="image">
+      <p>Likes: {{ count($post->likes) }}</p>
+      <p>Comments: {{ count($post->comments) }}</p>
 
-    <!-- <a href="posts/{{ $post->id }}/edit">Edit &rarr;</a> -->
+      <a href="posts/{{ $post->id }}">View &rarr;</a>
 
-    <!-- <form action="/posts/{{ $post->id }}" method="POST">
-      @csrf
-      @method('delete')
-      <button>
-        Delete &rarr;
-      </button>
-    </form> -->
+      <!-- <a href="posts/{{ $post->id }}/edit">Edit &rarr;</a> -->
+
+      <!-- <form action="/posts/{{ $post->id }}" method="POST">
+        @csrf
+        @method('delete')
+        <button>
+          Delete &rarr;
+        </button>
+      </form> -->
+    @endif
 
   @endforeach
 
