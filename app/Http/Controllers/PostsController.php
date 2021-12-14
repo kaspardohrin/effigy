@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Post;
 
 class PostsController extends Controller
@@ -54,7 +55,9 @@ class PostsController extends Controller
             'image' => 'required|mimes:jpg,jpeg,png|max:5048',
         ]);
 
-        $name = time() . '-' . $request->title . '.' . $request->image->extension();
+        $rand_int = rand(0, 1e6);
+
+        $name = time() . '-' . $rand_int . '.' . $request->image->extension();
 
         $request->image->move(public_path('images'), $name);
 

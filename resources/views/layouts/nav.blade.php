@@ -3,7 +3,7 @@
     <div class="logo-header">
         <a href="">
             <img
-                src="{{ asset('img/octo.jpg') }}"
+                src="{{ asset('img/icon.png') }}"
                 alt="logo effigy"
                 title="logo effigy"
             />

@@ -25,7 +25,7 @@
             <div class="container">
                 <img
                     class="logo-header"
-                    src="{{ asset('img/octo.jpg') }}"
+                    src="{{ asset('img/icon.png') }}"
                     alt="logo effigy"
                     title="logo effigy"
                 />

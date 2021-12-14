@@ -7,6 +7,8 @@ use App\Http\Controllers\PagesController;
 
 // posts controllers
 use App\Http\Controllers\PostsController;
+// posts search controllers
+use App\Http\Controllers\PostsSearchController;
 
 // comments controllers
 use App\Http\Controllers\CommentsController;
@@ -39,6 +41,8 @@ Route::get('/', [PagesController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/profile', [ProfilesController::class, 'index']);
+
+Route::post('/posts/search', [PostsSearchController::class, 'search']);
 
 Route::resource('/posts', PostsController::class);
 Route::put('/posts/activate/{id}', [PostsController::class, 'activate']);

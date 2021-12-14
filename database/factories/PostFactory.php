@@ -24,11 +24,32 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => rand(1, 5),
-            'title' => $this->faker->title(),
+            'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'path' => 'img/octo.jpg',
+            'path' => $this->random_image(),
             'hidden' => false,
             'created_at' => now(),
         ];
+    }
+
+    public function random_image()
+    {
+        $img_folder = 'img/';
+
+        $rand_img_paths = [
+            'asian-river.jpg',
+            'australia.jpg',
+            'cloudy-mountains.jpg',
+            'frosted-peak.jpg',
+            'frosty-lake.jpg',
+            'mountain-lake.jpg',
+            'woods.jpg',
+        ];
+
+        $rand_idx = rand(0, 6);
+
+        $rand_img = $rand_img_paths[$rand_idx];
+
+        return $img_folder . $rand_img;
     }
 }

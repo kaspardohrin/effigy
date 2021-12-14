@@ -3,7 +3,7 @@
 @section('content')
 <h1>Create Post</h1>
 
-@if (auth()->user()->worthy())
+@if (!auth()->user()->worthy())
 
   <p>You'll need to have liked or disliked atleast 5 posts before being allowed to create you own posts!</p>
 
