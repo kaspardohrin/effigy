@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use App\Models\Tag;
 
 class PostsController extends Controller
 {
@@ -25,9 +26,11 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::all();
+        $tags = Tag::all();
 
         return view('posts.index', [
-            'posts' => $posts
+            'posts' => $posts,
+            'tags' => $tags,
         ]);
     }
 
@@ -61,10 +64,12 @@ class PostsController extends Controller
 
         $request->image->move(public_path('images'), $name);
 
+        $tags = Tag::all();
+
         $post = Post::create([
             'user_id' => auth()->user()->id,
             'title' => $request->input('title'),
-            'tag' => 'nature',
+            'tag' => $tags[rand(0, 2 )]->tag,
             'description' => $request->input('description'),
             'path' => 'images/' . $name,
             'hidden' => false,

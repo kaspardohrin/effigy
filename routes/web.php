@@ -42,7 +42,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/profile', [ProfilesController::class, 'index']);
 
-Route::post('/posts/search', [PostsSearchController::class, 'search']);
+Route::post('/search', [PostsSearchController::class, 'search']);
 
 Route::resource('/posts', PostsController::class);
 Route::put('/posts/activate/{id}', [PostsController::class, 'activate']);

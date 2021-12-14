@@ -21,8 +21,22 @@ class TagFactory extends Factory
      */
     public function definition()
     {
+        $tags = [
+            'nature',
+            'landscape',
+            'outdoors',
+            'winter',
+            'desert',
+            'sunset',
+            'sunrise',
+            'field',
+            'mountain',
+            'forest',
+            'trees',
+        ];
+
         return [
-            'tag' => 'nature'
+            'tag' => $tags[rand(0, 10)],
         ];
     }
 }

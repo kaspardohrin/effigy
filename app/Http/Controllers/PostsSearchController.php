@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use App\Models\Tag;
 
 class PostsSearchController extends Controller
 {
@@ -26,13 +27,25 @@ class PostsSearchController extends Controller
     public function search(Request $req)
     {
         $query = $req->term;
+        $tag = $req->tag;
 
-        $posts = Post::where('title', 'LIKE', '%' . $query . '%')
-            ->orWhere('description', 'LIKE', '%' . $query . '%')
-            ->paginate(12);
+        $tags = Tag::all();
+
+
+        if ($tag) {
+            $posts = Post::where('title', 'LIKE', '%' . $query . '%')
+                ->orWhere('description', 'LIKE', '%' . $query . '%')
+                ->paginate(12)
+                ->where('tag', $tag);
+        } else {
+            $posts = Post::where('title', 'LIKE', '%' . $query . '%')
+                ->orWhere('description', 'LIKE', '%' . $query . '%')
+                ->paginate(12);
+        }
 
         return view('posts.index', [
-            'posts' => $posts
+            'posts' => $posts,
+            'tags' => $tags,
         ]);
     }
 }

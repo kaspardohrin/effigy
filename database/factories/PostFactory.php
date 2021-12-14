@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -22,13 +23,13 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $tags = ['nature', 'landscape', 'outdoors'];
+        $tags = Tag::all();
 
         return [
             'user_id' => rand(1, 5),
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'tag' => $tags[rand(0,2)],
+            'tag' => $tags[rand(0, 2)]->tag,
             'path' => $this->random_image(),
             'hidden' => false,
             'created_at' => now(),
