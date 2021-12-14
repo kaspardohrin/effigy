@@ -22,10 +22,13 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $tags = ['nature', 'landscape', 'outdoors'];
+
         return [
             'user_id' => rand(1, 5),
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
+            'tag' => $tags[rand(0,2)],
             'path' => $this->random_image(),
             'hidden' => false,
             'created_at' => now(),

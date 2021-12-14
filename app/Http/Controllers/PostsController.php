@@ -64,6 +64,7 @@ class PostsController extends Controller
         $post = Post::create([
             'user_id' => auth()->user()->id,
             'title' => $request->input('title'),
+            'tag' => 'nature',
             'description' => $request->input('description'),
             'path' => 'images/' . $name,
             'hidden' => false,
