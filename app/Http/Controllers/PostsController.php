@@ -25,7 +25,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::all()->where('hidden', 0);
         $tags = Tag::all();
 
         return view('posts.index', [
@@ -157,7 +157,7 @@ class PostsController extends Controller
                 'hidden' => !Post::find($id)->hidden,
             ]);
 
-        return redirect('/profile');
+        return back();
     }
 
 

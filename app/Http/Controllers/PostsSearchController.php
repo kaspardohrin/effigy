@@ -29,19 +29,20 @@ class PostsSearchController extends Controller
         $query = $req->term;
         $tag = $req->tag;
 
-        $tags = Tag::all();
-
-
         if ($tag) {
             $posts = Post::where('title', 'LIKE', '%' . $query . '%')
-                ->orWhere('description', 'LIKE', '%' . $query . '%')
-                ->paginate(12)
-                ->where('tag', $tag);
+            ->orWhere('description', 'LIKE', '%' . $query . '%')
+            ->paginate(12)
+            ->where('tag', $tag)
+            ->where('hidden', 0);
         } else {
             $posts = Post::where('title', 'LIKE', '%' . $query . '%')
-                ->orWhere('description', 'LIKE', '%' . $query . '%')
-                ->paginate(12);
+            ->orWhere('description', 'LIKE', '%' . $query . '%')
+            ->paginate(12)
+            ->where('hidden', 0);
         }
+
+        $tags = Tag::all();
 
         return view('posts.index', [
             'posts' => $posts,
