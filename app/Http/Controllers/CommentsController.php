@@ -109,10 +109,13 @@ class CommentsController extends Controller
     public function destroy(Comment $comment)
     {
         $user_id = auth()->user()->id;
+
         $owner = $comment->user_id == $user_id;
+
         $admin = auth()->user()->admin;
+
         if (
-            (!$owner) || (!$owner && !$admin)
+            !$owner && !$admin
         ) return redirect('/posts');
 
         $comment->delete();

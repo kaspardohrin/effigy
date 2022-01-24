@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function worthy()
     {
-        return $this->likes->count() > 4;
+        return $this->likes->count() > 4 || $this->admin;
     }
 
     // a user has multiple posts

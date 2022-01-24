@@ -170,10 +170,13 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
         $user_id = auth()->user()->id;
+
         $owner = $post->user_id == $user_id;
+
         $admin = auth()->user()->admin;
+
         if (
-            (!$owner) || (!$owner && !$admin)
+            !$owner && !$admin
         ) return redirect('/posts');
 
         $post->delete();
