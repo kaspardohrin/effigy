@@ -1,7 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+// generic controller
+use App\Http\Controllers\PagesController;
+
+// posts controllers
 use App\Http\Controllers\PostsController;
+// posts search controllers
+use App\Http\Controllers\PostsSearchController;
+
+// comments controllers
+use App\Http\Controllers\CommentsController;
+
+// likes controllers
+use App\Http\Controllers\LikesController;
+
+// profile controllers
+use App\Http\Controllers\ProfilesController;
+
+// user controllers
+use App\Http\Controllers\UsersController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +34,21 @@ use App\Http\Controllers\PostsController;
 |
 */
 
-Route::get('/posts', [PostsController::class, 'index'])->name('posts');
-Route::get('/posts/{name}', [PostsController::class, 'detail'])->where('name', '[a-zA-Z-]+');
+Auth::routes();
+
+Route::get('/', [PagesController::class, 'index']);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/profile', [ProfilesController::class, 'index']);
+
+Route::post('/search', [PostsSearchController::class, 'search']);
+
+Route::resource('/posts', PostsController::class);
+Route::put('/posts/activate/{id}', [PostsController::class, 'activate']);
+Route::get('/posts/{id}', [CommentsController::class, 'index']);
+Route::resource('/comments', CommentsController::class);
+Route::resource('/likes', LikesController::class);
+
+Route::delete('/user/{id}', [UsersController::class, 'destroy']);
+Route::put('/user/{id}', [UsersController::class, 'update']);
