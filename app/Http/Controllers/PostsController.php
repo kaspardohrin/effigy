@@ -104,10 +104,13 @@ class PostsController extends Controller
         $post = Post::find($id);
 
         $user_id = auth()->user()->id;
+
         $owner = Post::find($id)->user_id == $user_id;
+
         $admin = auth()->user()->admin;
+
         if (
-            (!$owner) || (!$owner && !$admin)
+            !$owner && !$admin
         ) return redirect('/posts');
 
         return view('posts.edit')->with('post', $post);
@@ -123,11 +126,19 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $user_id = auth()->user()->id;
+
         $owner = Post::find($id)->user_id == $user_id;
+
         $admin = auth()->user()->admin;
+
         if (
-            (!$owner) || (!$owner && !$admin)
+            !$owner && !$admin
         ) return redirect('/posts');
+
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
 
         $post = Post::where('id', $id)->
             update([
